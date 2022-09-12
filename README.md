@@ -1,4 +1,5 @@
 # Restricted_Selection_Index
 Restricted Selection Index
-requisite:
-library C++ eigein Armadillo
+
+Requisite:
+library C++ Eigein RccpEigen Armadillo RccpArmadillo
