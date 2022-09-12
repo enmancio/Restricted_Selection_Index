@@ -1,2 +1,2 @@
 # Restricted_Selection_Index
-Restricted Selectio Index
+Restricted Selection Index
