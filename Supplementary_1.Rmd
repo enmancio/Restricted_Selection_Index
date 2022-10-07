@@ -15,11 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Upload or download all packages and built-in functions:
 
 ```{r, echo=TRUE}
-setwd("~/Supplementary_codes/JDS")
+set.seed(1526)
+setwd("~/Desktop/Sever/Supplementary_codes/JDS")
 source("JDS_function.R") # load all built-in function
 pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm")
 libraries(pkg)
-set.seed(123)
 ```
 
 ### Use AlphaSimR to simulate the first population
@@ -106,10 +106,7 @@ for(generation in 1:4){
   # collect genetic mean for each trait  
   genMean = rbind(genMean,meanG(pop))
 }
-```
 
-
-```{r,fig.align='center', echo=FALSE}
 # plot genetic progress per generation
 plot_g_prog(genMean)
 
@@ -256,15 +253,19 @@ plot_g_prog(genMean )
 ```
 
 ### Scenario 5
-For computational reasons  we reduced the population size and for the need to have a pedigree to accurately estimate the genetic value of animals, before selection, we perform 3 generation of random mating. 
-Selection intensity was incresd for a better visual appraisal og the plots.
+For computational reasons we have reduced the size of the population and due to the need to accurately 
+estimate the genetic value of the animals (deep pedigree), before selection, we perform 3 generations of 
+random mating.
+The intensity of the selection was increased for better visual evaluation
+
+
 
 
 ```{r selection cinque}
 
-pop_size = 1100
-n_candidate_male = as.integer(pop_size/50)
-n_candidate_female = as.integer(pop_size/4)
+pop_size = 900
+n_candidate_male = as.integer(pop_size/100)
+n_candidate_female = as.integer(pop_size/8)
 
 founderPop = quickHaplo(nInd=pop_size, nChr=10, segSites=1000)
 
@@ -284,7 +285,7 @@ a=res_sel_I(econWt,varG(pop),varP(pop),c(4,5))[["res_a"]]
 
 genMean=as.data.frame(t(meanG(pop)))
 
-for(generation in 1:3){
+for(generation in 1:4){
   cat("generation ",generation,"\n")
   ebv = get_ebv(pop) # calculate breeding values with BLUP
   # select the best females as candidate dams by combing a with EBV
@@ -302,19 +303,20 @@ for(generation in 1:3){
   genMean = rbind(genMean,meanG(pop))
 }
 
-
 plot_g_prog(genMean )
+
+
 ```
 ### Scenario 6
 
 ```{r selection sei}
-
+gc()
 #  restricted economic weights
 pop = newPop(founderPop, simParam=SP)
 
 
 # generate pedigree by 3 generation of random mating
-for (i in 1:3){
+for (i in 1:4){
     candidate = selectInd(pop,nInd=pop@nInd*1/4, use = "rand",sex = "B")
     new_p =randCross(candidate,nCrosses=pop_size/2)
     pop = mergePops(list(pop,new_p))

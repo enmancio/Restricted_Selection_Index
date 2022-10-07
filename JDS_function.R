@@ -1,5 +1,5 @@
 
-
+require("sparseinv")
 
 # aggiungere locazione
 
@@ -47,13 +47,20 @@ get_ebv = function(pop){
 
     Rcpp::sourceCpp("mme_simplify.cpp")
     TMP = fast_five_traitsMM(A,Z1,Z2,VARGi,e)
-    TMP=solve(TMP)
+    #TMP[TMP<1e-2]=0
+    
+    #Takahashi equations
+    if (isSymmetric(TMP)) {
+    TMP=sparseinv::Takahashi_Davis(TMP)
+    } else {
+      break
+    }
     TMP=as.matrix(TMP)
     pheno = as.matrix(ped[,5:9])
     sol = SOLVEMME(pheno,as.matrix(e),as.matrix(Z1),as.matrix(Z2),TMP)
 
 
-    print("re-order the solutions")
+    print("re-order the solutions traits and then animals")
     sol = data.frame("val"=c(as.matrix(sol)))
     l=nrow(sol)/p
     sol_fix = data.frame("id"=ped$id)
