@@ -119,11 +119,11 @@ sp_mat  fast_five_traitsMM( sp_mat   A, sp_mat  Z1, sp_mat  Z2,sp_mat VARGi,sp_m
   sp_mat  Z3_Z4A = (trans(Z3)*Z4)*e(2,3) + A*VARGi(2,3);
   sp_mat  Z3_Z5A = (trans(Z3)*Z5)*e(2,4) + A*VARGi(2,4);
 
-  sp_mat  Z4_Z1A = (trans(Z4)*Z1)*e(3,1) + A*VARGi(3,0);
+  sp_mat  Z4_Z1A = (trans(Z4)*Z1)*e(3,0) + A*VARGi(3,0);
   sp_mat  Z4_Z2A = (trans(Z4)*Z2)*e(3,1) + A*VARGi(3,1);
-  sp_mat  Z4_Z3A = (trans(Z4)*Z3)*e(3,1) + A*VARGi(3,2);
-  sp_mat  Z4_Z4A = (trans(Z4)*Z4)*e(3,1) + A*VARGi(3,3);
-  sp_mat  Z4_Z5A = (trans(Z4)*Z5)*e(3,1) + A*VARGi(3,4);
+  sp_mat  Z4_Z3A = (trans(Z4)*Z3)*e(3,2) + A*VARGi(3,2);
+  sp_mat  Z4_Z4A = (trans(Z4)*Z4)*e(3,3) + A*VARGi(3,3);
+  sp_mat  Z4_Z5A = (trans(Z4)*Z5)*e(3,4) + A*VARGi(3,4);
  
   sp_mat  Z5_Z1A = (trans(Z5)*Z1)*e(4,0) + A*VARGi(4,0);
   sp_mat  Z5_Z2A = (trans(Z5)*Z2)*e(4,1) + A*VARGi(4,1);
