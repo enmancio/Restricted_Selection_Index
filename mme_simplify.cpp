@@ -1,13 +1,11 @@
 
 #include<iostream>
 #include <RcppArmadillo.h>
-#include <RcppEigen.h>
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
 using namespace std;
 using namespace arma;
-using namespace Eigen;
 
 
 
@@ -61,11 +59,11 @@ sp_mat  fast_five_traitsMM( sp_mat   A, sp_mat  Z1, sp_mat  Z2,sp_mat VARGi,sp_m
   sp_mat  Z3_Z4A = (trans(Z3)*Z4)*e(2,3) + A*VARGi(2,3);
   sp_mat  Z3_Z5A = (trans(Z3)*Z5)*e(2,4) + A*VARGi(2,4);
 
-  sp_mat  Z4_Z1A = (trans(Z4)*Z1)*e(3,1) + A*VARGi(3,0);
+  sp_mat  Z4_Z1A = (trans(Z4)*Z1)*e(3,0) + A*VARGi(3,0);
   sp_mat  Z4_Z2A = (trans(Z4)*Z2)*e(3,1) + A*VARGi(3,1);
-  sp_mat  Z4_Z3A = (trans(Z4)*Z3)*e(3,1) + A*VARGi(3,2);
-  sp_mat  Z4_Z4A = (trans(Z4)*Z4)*e(3,1) + A*VARGi(3,3);
-  sp_mat  Z4_Z5A = (trans(Z4)*Z5)*e(3,1) + A*VARGi(3,4);
+  sp_mat  Z4_Z3A = (trans(Z4)*Z3)*e(3,2) + A*VARGi(3,2);
+  sp_mat  Z4_Z4A = (trans(Z4)*Z4)*e(3,3) + A*VARGi(3,3);
+  sp_mat  Z4_Z5A = (trans(Z4)*Z5)*e(3,4) + A*VARGi(3,4);
  
   sp_mat  Z5_Z1A = (trans(Z5)*Z1)*e(4,0) + A*VARGi(4,0);
   sp_mat  Z5_Z2A = (trans(Z5)*Z2)*e(4,1) + A*VARGi(4,1);
@@ -90,6 +88,7 @@ sp_mat  fast_five_traitsMM( sp_mat   A, sp_mat  Z1, sp_mat  Z2,sp_mat VARGi,sp_m
 
   lhs_tmp = join_rows(lhs1,lhs2,lhs3);
   lhs=join_rows(lhs_tmp,lhs4,lhs5);
+  
 
   cout<<"lhs done"<<endl;
   // very stupid process but i was rush 
@@ -97,29 +96,6 @@ sp_mat  fast_five_traitsMM( sp_mat   A, sp_mat  Z1, sp_mat  Z2,sp_mat VARGi,sp_m
 }
 
 // [[Rcpp::export]]
-MatrixXd solveLU (SparseMatrix<double> lhs){
-    cout<<"lhs inversion"<<endl;
-   int size = lhs.cols();
-   cout << "dim matrix: "<< size << endl;
-   MatrixXd I(size,size)  ; 
-   MatrixXd Caa(size,size);
-   I =  MatrixXd::Identity(size, size);
- // Caa = lhs.llt().solve(I);
-  //return Caa;
-// fill A and b
- SparseLU<SparseMatrix<double>, COLAMDOrdering<int> >   solver;
-// fill A and b;
-// Compute the ordering permutation vector from the structural pattern of A
-solver.analyzePattern(lhs); 
-// Compute the numerical factorization 
-solver.factorize(lhs); 
-//Use the factors to solve the linear system 
-Caa = solver.solve(I);
-   return Caa;
-} 
-
-// [[Rcpp::export]]
-// ORDERE THE Caa of the mixed models equqtions
 Rcpp::List re_orderCaa(Rcpp::NumericMatrix TMP,int p, int n) {
     Rcpp::NumericMatrix A(p,p);
     int ANIMAL=0;
@@ -143,8 +119,9 @@ Rcpp::List re_orderCaa(Rcpp::NumericMatrix TMP,int p, int n) {
     
 }
 
+
+
 // [[Rcpp::export]]
-// fast and simple function to built a 5 traits MME give the inv(LHS)
 mat   SOLVEMME(mat pheno,mat e, mat Z1 , mat Z2,mat c22) {
    mat Z3 = Z1;
    mat Z4 = Z1;
