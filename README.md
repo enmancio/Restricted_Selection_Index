@@ -3,7 +3,7 @@
 
 ## Upload or download all packages and built-in functions:
 
-```{r, echo=TRUE}
+```r
 set.seed(1526)
 source("function/JDS_function.R") # load all built-in function
 pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm","sparseinv","reshape2")
