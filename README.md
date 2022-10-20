@@ -97,5 +97,5 @@ for(generation in 1:4){
 
 # plot genetic progress per generation
 plot_g_prog(genMean)
-
 ```
+[![name](/enmancio/Restricted_Selection_Index/)]
