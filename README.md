@@ -1,4 +1,4 @@
-# Restricted_Selection_Index
+# Restricted Selection Index
 
 
 ## Upload or download all packages and built-in functions:
@@ -8,6 +8,7 @@ set.seed(1526)
 source("function/JDS_function.R") # load all built-in function
 pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm","sparseinv","reshape2")
 libraries(pkg)
+```
 
 ### Use AlphaSimR to simulate the first population
 
