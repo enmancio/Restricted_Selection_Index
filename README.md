@@ -98,4 +98,4 @@ for(generation in 1:4){
 # plot genetic progress per generation
 plot_g_prog(genMean)
 ```
-[![Scenario1](https://github.com/enmancio/Restricted_Selection_Index/blob/main/Figure/selection%20due-1.pdf)]
+![plot](https://github.com/enmancio/Restricted_Selection_Index/blob/main/Figure/selection%20due-1.pdf)]
