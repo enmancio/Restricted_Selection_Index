@@ -65,3 +65,37 @@ In the following example **six** different scenarios have been simulated using t
 5. Selection using **restricted genetic** selection index with sex-limited traits, **without accounting** for different accuracies across candidates for the estimation of restricted economic weight
 6. Selection using **restricted genetic** selection index with sex-limited traits using the adaptation of Lin (1990) for **accounting** of different accuracies across candidates, as proposed in our manuscript.
 
+
+### Scenario 1.
+
+```r 
+# create first generation
+pop = newPop(founderPop, simParam=SP)
+G = varG(pop)
+P = varP(pop)
+
+# calcolate unrestricted b
+b = smithHazel(econWt, G, P)
+
+genMean = data.frame(t(meanG(pop)))  # mean of the breeding values at present generation
+names(genMean) = paste0("traits",1:n_traits)
+
+# perform selection for 4 generations
+for(generation in 1:4){
+  # select the best females as candidate dams
+  damsc = selectInd(pop,nInd=n_candidate_female, trait=selIndex,sex="F", b=b)
+  # select the best males as candidate sires
+  sirec = selectInd(pop,nInd=n_candidate_male, trait=selIndex,sex="M", b=b)
+  # create population of candidates to selection
+  candidate=mergePops(list(damsc,sirec)) 
+  # create next generation by random crossing sires and dams
+  pop=randCross(candidate,nCrosses=pop_size)
+  cat("generation ",generation,"\n")
+  # collect genetic mean for each trait  
+  genMean = rbind(genMean,meanG(pop))
+}
+
+# plot genetic progress per generation
+plot_g_prog(genMean)
+
+```
