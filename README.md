@@ -14,7 +14,7 @@ libraries(pkg)
 
 In this example, we mimic a population with similar parameters to the one described in Mancin et al. 2022 (Economic weights for restriction of selection index as the optimal strategy for combining multiple traits ). Note that the genetic variance and phenotype mean have been changed for a matter of clarity and a better visual appraisal of the graphs. Indeed, here we assumed a genetic variance equal to 1 and a phenotype mean equal to 0.
 
-```{r create population_1, echo=TRUE}
+```r 
 pop_size = 10000
 
 # we simulate traits similar to those present in the article 
@@ -44,7 +44,7 @@ econWt = c(0,0.3,0.4,0,0.3)
 
 In this part, we simulate founder haplotype and general population parameters
 
-```{r create population_2, echo=TRUE}
+```r
 # create founder haplotype
 founderPop = quickHaplo(nInd=pop_size, nChr=10, segSites=1000)
 # set population parameters
