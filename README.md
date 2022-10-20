@@ -5,7 +5,7 @@
 
 ```{r, echo=TRUE}
 set.seed(1526)
-source("JDS_function.R") # load all built-in function
+source("function/JDS_function.R") # load all built-in function
 pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm","sparseinv","reshape2")
 libraries(pkg)
 ```
