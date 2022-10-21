@@ -99,4 +99,4 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 
 ```
-https://github.com/enmancio/Restricted_Selection_Index/issues/2#issue-1417902570
+[selection uno-1.pdf](https://github.com/enmancio/Restricted_Selection_Index/files/9836803/selection.uno-1.pdf)
