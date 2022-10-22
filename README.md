@@ -105,7 +105,7 @@ plot_g_prog(genMean)
   src="https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg"
   alt="Alt text"
   title="Optional title"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+  style="display: inline-block; text-align:center; margin: 1 auto; max-width: 300px">
 
 ### Scenario 2.
 
