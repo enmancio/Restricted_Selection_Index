@@ -301,6 +301,8 @@ for(generation in 1:3){
 
 plot_g_prog(genMean )
 
+![Scenario5](https://user-images.githubusercontent.com/93042853/197345766-91a8b7e8-1dd6-4b6f-9dc2-b96155192e20.png)
+
 
 ```
 
