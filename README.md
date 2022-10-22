@@ -99,9 +99,8 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 
 ```
-[![](Figure/selection due-1.pdf)](#)
+![Immagine 2022-10-22 152507](https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg)
 
-<a href="#"><img src="Figure/selection due-1.pdf" /></a>
 
 ### Scenario 2.
 
