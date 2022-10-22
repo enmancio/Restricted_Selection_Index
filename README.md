@@ -99,13 +99,8 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 
 ```
-![Immagine 2022-10-22 152507](https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg)
+![Scenario1](https://user-images.githubusercontent.com/93042853/197342581-375f4b10-43c5-468b-9c48-f5c6290f0780.png)
 
-<img
-  src="https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg"
-  alt="Alt text"
-  title="Optional title"
-  style="display: inline-block; text-align:center; margin: 1 auto; max-width: 300px">
 
 ### Scenario 2.
 
