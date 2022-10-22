@@ -100,3 +100,148 @@ plot_g_prog(genMean)
 
 ```
 ![Scenario1](https://github.com/enmancio/Restricted_Selection_Index/files/9836803/selection.uno-1.pdf?raw=true "Optional Title")
+
+
+
+### Scenario 2.
+
+```r 
+restricted_traits = c(4,5)
+```
+
+we use the **res_sel_I** built-in function to restrict the economic weights of traits 4 and 5:
+
+```r 
+# create first generation
+pop = newPop(founderPop, simParam=SP)
+# get genetic and phenotypic variance
+G = varG(pop)
+P = varP(pop)
+
+# restricted selection index (built-in function created from Appendix 1)
+# that permit to obtain the restricted economic weights and 
+# restricted b vector
+restriction=res_sel_I(econWt,G,P,tr=restricted_traits)
+b_r=restriction$res_b
+genMean = data.frame(t(meanG(pop)))  # mean of the breeding values at present generation
+names(genMean) = paste0("traits",1:n_traits)
+
+
+for(generation in 1:4){
+  # select the best females as candidate dams
+  damsc = selectInd(pop,nInd=n_candidate_female, trait=selIndex,sex="F", b=b_r)
+  # select the best males as candidate sires
+  sirec = selectInd(pop,nInd=n_candidate_male, trait=selIndex,sex="M", b=b_r)
+  # create population of candidates to selection
+  candidate=mergePops(list(damsc,sirec)) 
+  # create next generation by random crossing sires and dams
+  pop=randCross(candidate,nCrosses=pop_size)
+  cat("generation ",generation,"\n")
+  # collect genetic mean for each trait  
+  genMean = rbind(genMean,meanG(pop))
+
+}
+# plot genetic progress per generation
+plot_g_prog(genMean)
+```
+
+### Scenario 3.
+
+```r 
+sex_lim_traits  = c(2,5)
+```
+
+here we use same selection differential (b) for both males and females
+
+```r
+
+pop = newPop(founderPop, simParam=SP)
+
+
+pop=remove_phenotype_male(pop,sex_lim_traits) # phenotypes 2 and 5 as sex limited traits
+head(pop@pheno) # shows the missing first 6 animals
+
+P=varP(pop)
+G=varG(pop)
+
+# restricted selection index (built-in function created from code in Appendix 1)
+# that function permit to obtain the restricted economic weights and thus
+# restricted b vector
+restriction=res_sel_I(econWt,G,P,tr=restricted_traits )
+b_r=restriction$res_b
+
+# mean of the breeding values at present generation
+genMean = data.frame(t(meanG(pop)))  
+names(genMean) = paste0("traits",1:n_traits)
+
+
+for(generation in 1:4){
+  cat("generation ",generation,"\n")
+  # select the best females as candidate dams
+  damsc = selectInd(pop,sex="F",nInd=n_candidate_female, trait=selIndex, b=b_r)
+  # select the best males as candidate sire
+  sirec = selectInd(pop,sex="M",nInd=n_candidate_male, trait=selIndex, b=b_r)
+  # create population of candidates to selection
+  candidate=mergePops(list(damsc,sirec))
+  # create next generation by random crossing sires and dams
+  pop=randCross(candidate,nCrosses=pop_size)
+  # remove sex-limited traits
+  pop=remove_phenotype_male(pop,sex_lim_traits)
+  # collect genetic means for each trait 
+  genMean = rbind(genMean,meanG(pop))
+}
+
+# plot genetic progress per generation
+plot_g_prog(genMean)
+```
+
+### Scenario 4. 
+
+```r
+# create first generation
+pop = newPop(founderPop, simParam=SP)
+
+# restricted selection index (built-in function created from Appendix 1)
+# that permit to obtain the restricted economic weight and 
+# restricted b vector
+
+pop=remove_phenotype_male(pop,sex_lim_traits)
+P=varP(pop)
+G=varG(pop)
+
+G_m = varG(pop[pop@sex=="M"])
+P_m = varP(pop[pop@sex=="M"])
+G_f = varG(pop[pop@sex=="F"])
+P_f = varP(pop[pop@sex=="F"])
+
+
+genMean = data.frame(t(meanG(pop)))  # mean of the breeding values at present generation
+names(genMean) = paste0("traits",1:n_traits)
+
+#calculate separate economic weights for the females and  males
+restriction_m=res_sel_I(econWt,G_m,P_m,tr=restricted_traits )
+br_m=restriction_m$res_b
+
+restriction_f=res_sel_I(econWt,G_f,P_f,tr=restricted_traits )
+br_f=restriction_f$res_b
+
+
+for(generation in 1:4){
+  cat("generation ",generation,"\n")
+  # select the best females as candidate dams
+  damsc = selectInd(pop,sex="F",nInd=n_candidate_female, trait=selIndex, b=br_f)
+  # select the best males as candidate sires
+  sirec = selectInd(pop,sex="M",nInd=n_candidate_male, trait=selIndex, b=br_m)
+  # create population of candidates to selection
+  candidate=mergePops(list(damsc,sirec))
+  # create next generation by random crossing sires and dams
+ pop=randCross(candidate,nCrosses=pop_size)
+  # remove sex-limited traits
+  pop=remove_phenotype_male(pop,sex_lim_traits)
+  # collect genetic means for each trait  
+  genMean = rbind(genMean,meanG(pop))
+}
+
+plot_g_prog(genMean )
+```
+
