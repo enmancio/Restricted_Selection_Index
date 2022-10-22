@@ -101,6 +101,11 @@ plot_g_prog(genMean)
 ```
 ![Immagine 2022-10-22 152507](https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg)
 
+<img
+  src="https://user-images.githubusercontent.com/93042853/197341531-5a810733-a319-457f-9380-529996c1a622.jpg"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
 
 ### Scenario 2.
 
