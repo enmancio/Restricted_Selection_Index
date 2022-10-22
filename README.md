@@ -101,8 +101,7 @@ plot_g_prog(genMean)
 ```
 <img
   src="/Figure/selection due-1.pdf"
-  alt="Alt text"
-  title="Optional title"
+  title="Scenario 1"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 
 ### Scenario 2.
