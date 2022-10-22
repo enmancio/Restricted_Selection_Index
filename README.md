@@ -99,7 +99,7 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 
 ```
-![ezcv logo](https://raw.githubusercontent.com/enmancio/Restricted_Selection_Index/Figure/.github/logo.png)
+![ezcv logo](https://raw.githubusercontent.com/enmancio/Restricted_Selection_Index/Figure/.github/selection due-1.pdf)
 
 
 
