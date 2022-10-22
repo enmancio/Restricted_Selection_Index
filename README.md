@@ -245,3 +245,102 @@ for(generation in 1:4){
 plot_g_prog(genMean )
 ```
 
+### Scenario 5
+For computational reasons we have reduced the size of the population and due to the need to accurately 
+estimate the genetic value of the animals (deep pedigree), before selection, we perform 3 generations of 
+random mating.
+The intensity of the selection was increased for better visual evaluation
+
+
+```r 
+
+pop_size = 1300
+n_candidate_male = as.integer(pop_size/50)
+n_candidate_female = as.integer(pop_size/4)
+
+founderPop = quickHaplo(nInd=pop_size, nChr=10, segSites=1000)
+
+# create founder haplotype
+pop = newPop(founderPop, simParam=SP)
+
+# generate pedigree for 3 generation of random mating
+for (i in 1:3){
+    candidate = selectInd(pop,nInd=pop@nInd*1/5, use = "rand",sex = "B")
+    new_p =randCross(candidate,nCrosses=pop_size/4)
+    pop = mergePops(list(pop,new_p))
+    pop=remove_phenotype_male(pop,sex_lim_traits)
+}
+
+#  restricted economic weights
+a=res_sel_I(econWt,varG(pop),varP(pop),c(4,5))[["res_a"]]
+
+genMean=as.data.frame(t(meanG(pop)))
+
+for(generation in 1:3){
+  cat("generation ",generation,"\n")
+  ebv = get_ebv(pop) # calculate breeding values with BLUP
+  # select the best females as candidate dams by combing a with EBV
+  damsc = my_sel_id(pop,SEX="M",n_candidate_female/2,a,ebv)
+  # select the best males as candidate sire by combing a with EBV
+  sirec = my_sel_id(pop,SEX="F",n_candidate_male/2,a,ebv)
+  # create population of candidate to selection 
+  candidate=mergePops(list(damsc,sirec))
+  # generate next population by random mating
+  new_p=randCross(candidate,nCrosses=pop_size)
+  # combine the populations to trace-back pedigree infomation
+  pop = mergePops(list(pop,new_p))
+  pop=remove_phenotype_male(pop,sex_lim_traits)
+  # create next generation by random crossing sire and dams
+  genMean = rbind(genMean,meanG(pop))
+}
+
+plot_g_prog(genMean )
+
+
+```
+
+### Scenario 6
+
+```r 
+#  restricted economic weights
+pop = newPop(founderPop, simParam=SP)
+
+
+# generate pedigree by 3 generation of random mating
+for (i in 1:4){
+    candidate = selectInd(pop,nInd=pop@nInd*1/5, use = "rand",sex = "B")
+    new_p =randCross(candidate,nCrosses=pop_size/4)
+    pop = mergePops(list(pop,new_p))
+    pop=remove_phenotype_male(pop,sex_lim_traits)
+}
+
+genMean=as.data.frame(t(meanG(pop)))
+
+for(generation in 1:3){
+  cat("generation ",generation,"\n")
+# built-in function to solve 5 traits mixed model and obtained  
+# the Caa values in the correct order
+  MME = estimateg3(pop)
+  G_hat = MME[["G_hat"]] # obtain Ghat = G - Caa
+  EBV=MME[["SOL"]] # get the EBV
+  G_hat = as.matrix(G_hat)
+  # ranking animals based on the restricted economic weights
+  af=res_weigth_lin(pop,econWt,G_hat,restricted_traits)
+  # select the best females as candidate dams by combing a with EBV
+  damsc = my_sel_id2(pop,SEX="F",n_candidate_female/2,af,EBV)
+  # select the best males as candidate dams by combing a with EBV
+  sirec = my_sel_id2(pop,SEX="M",n_candidate_male/2,af,EBV)
+  # create population of candidates to selection 
+  candidate=mergePops(list(damsc,sirec))
+  # generate next population by random mating
+  new_p=randCross(candidate,nCrosses=pop_size)
+  #merge previous and new population to trace-back pedigree information  
+  pop = mergePops(list(pop,new_p))
+  pop=remove_phenotype_male(pop,sex_lim_traits)
+  genMean = rbind(genMean,meanG(pop))
+}
+
+
+plot_g_prog(genMean )
+
+```
