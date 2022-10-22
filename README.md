@@ -144,6 +144,8 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 ```
 
+![Scenario2](https://user-images.githubusercontent.com/93042853/197343046-81449382-fb64-4c0b-b016-4a5fe6261c52.png)
+
 ### Scenario 3.
 
 ```r 
@@ -194,6 +196,8 @@ for(generation in 1:4){
 plot_g_prog(genMean)
 ```
 
+![Scenario3](https://user-images.githubusercontent.com/93042853/197343040-25a9e9a8-b6e6-467a-8233-30b403a0373d.png)
+
 ### Scenario 4. 
 
 ```r
@@ -243,6 +247,8 @@ for(generation in 1:4){
 
 plot_g_prog(genMean )
 ```
+
+![Scenario4](https://user-images.githubusercontent.com/93042853/197343043-bfb347fc-0ecf-430d-82cb-8f51c48e3ad4.png)
 
 ### Scenario 5
 For computational reasons we have reduced the size of the population and due to the need to accurately 
