@@ -4,9 +4,9 @@
 ## Upload or download all packages and built-in functions:
 
 ```r
-set.seed(123)
+set.seed(1234)
 source("function/JDS_function.R") # load all built-in function
-pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm","sparseinv")
+pkg = c("AlphaSimR","MASS","ggplot2","pedigreemm","sparseinv","Rcpp")
 libraries(pkg)
 ```
 
@@ -259,7 +259,7 @@ The intensity of the selection was increased for better visual evaluation
 
 ```r 
 
-pop_size = 1300
+pop_size = 1700
 n_candidate_male = as.integer(pop_size/50)
 n_candidate_female = as.integer(pop_size/4)
 
@@ -270,8 +270,8 @@ pop = newPop(founderPop, simParam=SP)
 
 # generate pedigree for 3 generation of random mating
 for (i in 1:3){
-    candidate = selectInd(pop,nInd=pop@nInd*1/5, use = "rand",sex = "B")
-    new_p =randCross(candidate,nCrosses=pop_size/4)
+    candidate = selectInd(pop,nInd=pop@nInd*1/2, use = "rand",sex = "B")
+    new_p =randCross(candidate,nCrosses=pop_size/2)
     pop = mergePops(list(pop,new_p))
     pop=remove_phenotype_male(pop,sex_lim_traits)
 }
@@ -285,9 +285,9 @@ for(generation in 1:3){
   cat("generation ",generation,"\n")
   ebv = get_ebv(pop) # calculate breeding values with BLUP
   # select the best females as candidate dams by combing a with EBV
-  damsc = my_sel_id(pop,SEX="M",n_candidate_female/2,a,ebv)
+  damsc = my_sel_id(pop,SEX="M",n_candidate_female,a,ebv)
   # select the best males as candidate sire by combing a with EBV
-  sirec = my_sel_id(pop,SEX="F",n_candidate_male/2,a,ebv)
+  sirec = my_sel_id(pop,SEX="F",n_candidate_male,a,ebv)
   # create population of candidate to selection 
   candidate=mergePops(list(damsc,sirec))
   # generate next population by random mating
@@ -315,12 +315,13 @@ pop = newPop(founderPop, simParam=SP)
 
 
 # generate pedigree by 3 generation of random mating
-for (i in 1:4){
-    candidate = selectInd(pop,nInd=pop@nInd*1/5, use = "rand",sex = "B")
-    new_p =randCross(candidate,nCrosses=pop_size/4)
+for (i in 1:3){
+    candidate = selectInd(pop,nInd=pop@nInd*1/2, use = "rand",sex = "B")
+    new_p =randCross(candidate,nCrosses=pop_size/2)
     pop = mergePops(list(pop,new_p))
     pop=remove_phenotype_male(pop,sex_lim_traits)
 }
+
 
 genMean=as.data.frame(t(meanG(pop)))
 
@@ -335,9 +336,9 @@ for(generation in 1:3){
   # ranking animals based on the restricted economic weights
   af=res_weigth_lin(pop,econWt,G_hat,restricted_traits)
   # select the best females as candidate dams by combing a with EBV
-  damsc = my_sel_id2(pop,SEX="F",n_candidate_female/2,af,EBV)
+  damsc = my_sel_id2(pop,SEX="F",n_candidate_female,af,EBV)
   # select the best males as candidate dams by combing a with EBV
-  sirec = my_sel_id2(pop,SEX="M",n_candidate_male/2,af,EBV)
+  sirec = my_sel_id2(pop,SEX="M",n_candidate_male,af,EBV)
   # create population of candidates to selection 
   candidate=mergePops(list(damsc,sirec))
   # generate next population by random mating
