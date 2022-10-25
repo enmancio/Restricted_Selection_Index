@@ -301,10 +301,7 @@ for(generation in 1:3){
 
 plot_g_prog(genMean )
 ```
-
-![Scenario5](https://user-images.githubusercontent.com/93042853/197345766-91a8b7e8-1dd6-4b6f-9dc2-b96155192e20.png)
-
-
+![Scenario5](https://user-images.githubusercontent.com/93042853/197704265-04b589cb-ff6a-41ea-a21b-c2ed5e7e20b6.png)
 
 
 ### Scenario 6
@@ -353,3 +350,4 @@ for(generation in 1:3){
 plot_g_prog(genMean )
 
 ```
+![Scenario6](https://user-images.githubusercontent.com/93042853/197704272-20360d7b-1781-4aa7-82b1-2a4be93c7af0.png)
