@@ -12,7 +12,8 @@ libraries(pkg)
 
 ### Use AlphaSimR to simulate the first population
 
-In this example, we mimic a population with similar parameters to the one described in Mancin et al. 2022 (Economic weights for restriction of selection index as the optimal strategy for combining multiple traits ). Note that the genetic variance and phenotype mean have been changed for a matter of clarity and a better visual appraisal of the graphs. Indeed, here we assumed a genetic variance equal to 1 and a phenotype mean equal to 0.
+In this example, we mimic a population with similar parameters to the one described in [Mancin et al. (2022)](https://reader.elsevier.com/reader/sd/pii/S0022030222006130?token=D918083579920C8D0B9ADAC59C8D893F94465DE9A79C795EB679FFED6584E63371702C17D9EE5F09BC84C52D439C23B1&originRegion=eu-west-1&originCreation=20221026133930). 
+Note that the genetic variance and phenotype mean have been changed for a matter of clarity and a better visual appraisal of the graphs. Indeed, here we assumed a genetic variance equal to 1 and a phenotype mean equal to 0.
 
 ```r 
 pop_size = 10000
